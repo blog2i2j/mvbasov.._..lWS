@@ -95,6 +95,10 @@ class ServerHandler extends Thread {
                     document = s.substring(5,leerstelle);
                     document = document.replaceAll("[/]+","/");
                     document = URLDecoder.decode(document, "UTF-8");
+                    // trim URL parameters like ?aa=11&bb=22 from file name
+                    // it is not used on server side but can be used fot JavaScript
+                    int params = document.indexOf("?");
+                    if (params > 0) document = document.substring(0,params);
                 }
                 if (s.substring(0,6).equals("Range:")) {
                     rangesArray = s
